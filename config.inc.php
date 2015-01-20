@@ -9,7 +9,7 @@ $aConfData = array(
     /* DB config */
     'aConnections'      => [
         'dev'  => 'mysql://chat:qwe123@localhost/chat',
-        'prod' => 'mysql://u921710701_chat:fg3^uJf4@localhost/u921710701_chat'
+        'prod' => 'mysql://u921710701_chat:fg3^uJf4@mysql.0hosting.me/u921710701_chat'
     ],
     'sDefConn'          => 'dev',
     /* app config */
