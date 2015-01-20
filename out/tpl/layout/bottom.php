@@ -1,0 +1,6 @@
+
+<?= $this->getJsSnippet(); ?>   
+
+</body>
+</html>
+
