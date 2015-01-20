@@ -1,7 +1,5 @@
 <?php
 
-use \myApp;
-
 /* autoload classes */
 spl_autoload_register('myAutoloader');
 

@@ -2,14 +2,32 @@
 
 class Message extends ActiveRecord\Model {
 
+    /**
+     * Belongs to relation
+     * 
+     * @static
+     * @var array
+     */
     static $belongs_to = [
         ['user']
     ];
-    // must have a text
+
+    /**
+     * Required fields
+     * 
+     * @static
+     * @var array
+     */
     static $validates_presence_of = [
         ['message_text'], ['user_id']
     ];
 
+    /**
+     * Return message text
+     * 
+     * @param bool $blFull 
+     * @return array
+     */
     public function getMessText($blFull = true) {
         $sResText = '';
         if ($blFull) {
@@ -29,12 +47,23 @@ class Message extends ActiveRecord\Model {
         return nl2br($sResText);
     }
 
+    /**
+     * Save model to db. Return false on failure.
+     * 
+     * @param bool $validate
+     * @return bool
+     */
     public function save($validate = true) {
         $this->_formatMsg();
 
         return parent::save($validate);
     }
 
+    /**
+     * Format message text before saving
+     * 
+     * @return null
+     */
     protected function _formatMsg() {
         $sUserMarker = Conf::getInstance()->getconfParam('sUserMarker');
         $sPattern = '~' . $sUserMarker . User::getUserNamePrefix() . '([\w]+)~ui';

@@ -2,8 +2,19 @@
 
 class chat extends AbstractController {
 
+    /**
+     * Name of rendered View
+     * 
+     * @var string
+     */
     protected $_sViewName = 'vChat';
 
+    /**
+     * This method calling after each action;
+     * Prepare View data. Return View name
+     * 
+     * @return string
+     */
     protected function _render() {
         $aMessages = Message::all([
                     'order' => 'message_id desc',
@@ -15,13 +26,19 @@ class chat extends AbstractController {
         return $this->_sViewName;
     }
 
+    /**
+     * Action Index.
+     * Check user and update last login time
+     * 
+     * @return string
+     */
     public function Index() {
         $oSess = Session::getInstance();
         $iTime = time();
 
         $blNewUser = true;
 
-        if ($iUserId = $oSess->get('user_id')) {//isset user id
+        if ($iUserId = $oSess->get('user_id') && $oUser = User::find($oSess->get('user_id'))) {//isset user id
             if ($iLastLogin = Request::getCookie('last_login')) {// and isset last login time
                 if ($iTime - $iLastLogin <= $this->_oConf->getConfParam('iUserLifetime')) {//but n hours ago
                     $blNewUser = false;
@@ -44,6 +61,12 @@ class chat extends AbstractController {
         return $this->_render();
     }
 
+    /**
+     * Action AddMessage.
+     * Add new message to D if Request is valid
+     * 
+     * @return string
+     */
     public function AddMessage() {
         if (Request::isPost()) {
             $iUserId = Session::getInstance()->get('user_id');

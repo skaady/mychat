@@ -2,6 +2,11 @@
 
 class App {
 
+    /**
+     * main method. Run application
+     * 
+     * @return string
+     */
     public function run() {        
         try {
             $oReq = Request::getInstance();
@@ -27,10 +32,23 @@ class App {
         }
     }
 
+    /**
+     * show error page
+     * 
+     * @param Exception $oEx catched exception
+     * @return string
+     */
     protected function _handleException(Exception $oEx) {
         $this->_makeResponce($oEx->getMessage() . '<br /><a href="/" title="Back">Go back!</a>', false);
     }
 
+    /**
+     * render page
+     * 
+     * @param AbstractController $oController controller object
+     * @param string $sViewName View for rendering
+     * @return string
+     */
     protected function _renderView(AbstractController $oController, $sViewName) {
         if (class_exists($sViewName)) {
             $oView = new $sViewName(Conf::getInstance());
@@ -40,6 +58,13 @@ class App {
         }
     }
 
+    /**
+     * send responce po browser
+     * 
+     * @param string $sPageBody page body
+     * @param bool $blStatus status for ajax responce. false on failure
+     * @return null
+     */
     protected function _makeResponce($sPageBody, $blStatus = true) {
         Session::getInstance()->set('sess_token', Session::getInstance()->get('new_sess_token'));
 
