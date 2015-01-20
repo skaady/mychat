@@ -2,7 +2,6 @@
 
 $aConfData = array(
     /* Path config */
-    'sRootUrl'          => 'http://loginform.dev:8080/',
     'sAppRoot'          => $_SERVER['DOCUMENT_ROOT'] . '/app/',
     'sTplRoot'          => $_SERVER['DOCUMENT_ROOT'] . '/out/tpl/',
     'sImgRoot'          => '/out/img/',
@@ -10,7 +9,7 @@ $aConfData = array(
     /* DB config */
     'aConnections'      => [
         'dev'  => 'mysql://chat:qwe123@localhost/chat',
-        'prod' => 'mysql://chat:qwe123@localhost/chat'
+        'prod' => 'mysql://u921710701_chat:fg3^uJf4@localhost/u921710701_chat'
     ],
     'sDefConn'          => 'dev',
     /* app config */

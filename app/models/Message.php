@@ -37,7 +37,7 @@ class Message extends ActiveRecord\Model {
 
     protected function _formatMsg() {
         $sUserMarker = Conf::getInstance()->getconfParam('sUserMarker');
-        $sPattern = '~' . $sUserMarker . User::getUserNamePrefix() . '([^\s]+)~ui';
+        $sPattern = '~' . $sUserMarker . User::getUserNamePrefix() . '([\w]+)~ui';
         $sReplacement = '<b>' . $sUserMarker . User::getUserNamePrefix() . '$1</b>';
 
         $this->message_text = preg_replace($sPattern, $sReplacement, strip_tags($this->message_text));

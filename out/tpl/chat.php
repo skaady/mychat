@@ -2,13 +2,14 @@
 
 <div class="msg-list">
     <?php
-    $iOldMessCount = 0;
+    $iOldMessCount = Conf::getInstance()->getConfParam('iOldestMessCnt');
     $iMessCount = count($this->aMessages);
 
-    foreach ($this->aMessages as $oMsg) :
-        $blFull = false;
-        if ($iOldMessCount < $iMessCount - $this->_oConf->getConfParam('iOldestMessCnt')) {
-            $blFull = true;
+    for ($i = 0; $i < $iMessCount; $i++) :
+        $oMsg = $this->aMessages[$i];
+        $blFull = true;
+        if ($iMessCount > $iOldMessCount && $iMessCount - $i <= $iOldMessCount) {
+            $blFull = false;
         }
 
         $sMessBlock = '<div class="msg-block ' . ($oMsg->is_ajax ? 'ajax' : '') . '">';
@@ -19,10 +20,9 @@
         $sMessBlock .= '<div class="msg-text">' . $oMsg->getMessText($blFull) . '</div>';
         $sMessBlock .= '</div>';
 
-        $iOldMessCount++;
         ?>
         <?= $sMessBlock; ?>
-    <?php endforeach; ?>    
+    <?php endfor; ?>    
 </div>
 <div class="msg-form">
     <?php $this->_includeTpl('forms/sendmessage.php'); ?>
